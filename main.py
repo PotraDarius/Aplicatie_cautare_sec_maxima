@@ -1,15 +1,46 @@
-import customtkinter
-"""
-root = customtkinter.CTk()
+import tkinter as tk
+import customtkinter as ctk
 
-frame = customtkinter.CTkFrame(master=root)
+ctk.set_appearance_mode("dark")
+
+root = ctk.CTk()
+root.geometry("1000x600")
+root.title("Aplicatie python")
+
+entry_data = ""
+
+
+def handle_button_click():
+    print("Test")
+
+
+def iesire():
+    root.quit()
+
+
+frame = ctk.CTkFrame(master=root)
 frame.pack(pady=20, padx=60, fill="both", expand=True)
 
+fill_label = ctk.CTkLabel(master=frame, text="")
+fill_label.grid(row=0, column=0, padx=160, pady=10)
 
+button = ctk.CTkButton(master=frame, text="Buton de test", command=handle_button_click)
+button.grid(row=0, column=1, padx=10, pady=(40,40))
 
-root.mainloop()"""
+button_exit = ctk.CTkButton(master=frame, text="Iesire", command=iesire)
+button_exit.grid(row=3, column=1, padx=10, pady=40)
 
+entry_1 = ctk.CTkEntry(master=frame, placeholder_text="Dati o valoare")
+entry_1.grid(row=1, column=1, padx=10, pady=40)
 
+entry_2 = ctk.CTkEntry(master=frame, placeholder_text="Dati elementele sirului")
+entry_2.grid(row=2, column=1, padx=10, pady=40)
+
+#DE TERMINAT DE ADAUGAT LABEL PENTRU AFISARE REZULTATE + FUNCTIONALITATE BUTON IMPLEMENTATA
+
+root.mainloop()
+
+"""
 def citire(n, lista):
     for i in range(0, n):
         el = int(input())
@@ -50,4 +81,4 @@ nr = int(input())
 lista = []
 citire(nr, lista)
 sec_3numere_consec(nr, lista)
-
+"""
