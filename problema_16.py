@@ -1,18 +1,36 @@
 import customtkinter as ctk
 
 
-def main10():
-    def min_max(a, b, c):  # Verifica daca elementul din mijloc dintre 3 elemente este maximul sau minimul
-        if a != b and b != c:
-            lista_aux = [a, b, c]
-            if min(lista_aux) == b:
-                return True
-            if max(lista_aux) == b:
-                return True
-        return False
+def main16():
+    def aceleasi_cifre(n, m):
+        if n < 0:
+            n = -n
+        if m < 0:
+            m = -m
 
-    def min_max_local(n, lista):
-        if n <= 2:
+        cifre_n = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        while n:
+            cifre_n[n % 10] = 1
+            n = int(n / 10)
+
+        cifre_m = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        while m:
+            cifre_m[m % 10] = 1
+            m = int(m / 10)
+        if not cifre_m == cifre_n:
+            return False
+        return True
+
+    def functie_test():
+        nr = 5
+        lista_test = [23, 32, -78, 877, 77]
+        assert sec_max(nr, lista_test) == (0, 2)
+        return True
+
+    def sec_max(n, lista):
+        if n <= 1:
             result_label.configure(text="Lista este prea mica pentru a gasi o astfel de secventa!")
             return -1
         else:
@@ -21,11 +39,11 @@ def main10():
 
             lungime_aux = 0
             start_sec_aux = 0
-            for i in range(0, n-2):
-                if min_max(lista[i], lista[i+1], lista[i+2]) is True:
+            for i in range(0, n - 1):
+                if aceleasi_cifre(lista[i], lista[i + 1]) is True:
                     if lungime_aux == 0:
                         start_sec_aux = i
-                        lungime_aux = 3
+                        lungime_aux = 2
                     else:
                         lungime_aux += 1
                     if lungime_aux > lungime:
@@ -39,7 +57,7 @@ def main10():
                 return -2
             else:
                 text_1 = "Lungimea secventei: " + str(lungime)
-                text_2 = "Secventa: " + str(lista[start_sec:start_sec+lungime])
+                text_2 = "Secventa: " + str(lista[start_sec:start_sec + lungime])
                 result_label.configure(text=text_1 + '\n' + text_2)
                 return start_sec, lungime
 
@@ -50,7 +68,7 @@ def main10():
         try:
             nr = int(input_1)
             lista = [int(item.strip()) for item in input_2.split(",")]  # Convertire in int al inputului
-            min_max_local(nr, lista)
+            sec_max(nr, lista)
         except ValueError:
             result_label.configure(text="Datele nu au fost introduse corect")
 
@@ -60,12 +78,12 @@ def main10():
     ctk.set_appearance_mode("dark")
     root2 = ctk.CTk()
     root2.geometry("1000x600")
-    root2.title("Problema 10")
+    root2.title("Problema 16")
 
     frame = ctk.CTkFrame(master=root2)
     frame.pack(padx=60, pady=20, fill="both", expand=True)
 
-    fill = "Secventa de lungime maxima cu p=1 sau diferentele (x[j+1]-x[j]) si (x[j+2]-x[j+1]) au semne contrare, j=i..i+p-2"
+    fill = "Secventa de lungime maxima cu numere care scrierea lor in baza 10 foloseste aceleasi cifre"
     filler_label = ctk.CTkLabel(master=frame, text=fill, font=('Helvetica', 17))
     filler_label.grid(row=0, column=0, padx=10)
 
@@ -80,6 +98,9 @@ def main10():
 
     result_label = ctk.CTkLabel(master=frame, text=" ")
     result_label.grid(row=4, column=0, pady=(0, 40), padx=10)
+
+    test_button = ctk.CTkButton(master=frame, text="Testare", command=functie_test)
+    test_button.grid(row=0, column=1, padx=10, pady=(40, 40))
 
     exit_button = ctk.CTkButton(master=frame, text="Iesire", command=iesire)
     exit_button.grid(row=5, column=0, pady=(0, 40), padx=10)

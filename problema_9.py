@@ -11,12 +11,14 @@ def main9():
     def sec_3numere_consec(n, lista):
         if n <= 2:
             output_label.configure(text="Sirul dat este prea scurt pentru o astfel de secventa!")
+            return -1
         else:
             lungime = 0
             start_sec = 0
             # Cele doua variabile de mai sus vor retine lungimea si inceputu secventei maxime la final
             lungime_aux = 0
             start_sec_aux = 0
+            #stop_sec = 1
             # Cele doua variabile auxiliare de mai sus vor ajuta la determinarea secventelor pe parcurs
             for i in range(0, n - 2):
                 if lista[i] == lista[i + 1] or lista[i] == lista[i + 2]:  # Conditia de aparteneta la secventa cautata
@@ -31,14 +33,21 @@ def main9():
                         # finala si inceputul secventei finale se modifica
                         start_sec = start_sec_aux
                 else:
-                    lungime_aux = 0  # Variabilele auxiliare se reseteasa pentru gasirea unei secvente
-                    start_sec_aux = 0
+                    #if not stop_sec:
+                        lungime_aux = 0  # Variabilele auxiliare se reseteasa pentru gasirea unei secvente
+                        start_sec_aux = 0
+                        #stop_sec = 1
+                    #else:
+                        #stop_sec -= 1
+                        #lungime_aux += 1
             if lungime == 0:
                 output_label.configure(text="Nu s-a gasit o astfel de secventa")
+                return -2
             else:
                 text1 = "Lungime: " + str(lungime)
                 text2 = "Secventa: " + str(lista[start_sec:start_sec + lungime])
                 output_label.configure(text=text1 + '\n' + text2)
+                return start_sec, lungime
 
     def handle_button_click():
         input_text1 = entry_1.get()
